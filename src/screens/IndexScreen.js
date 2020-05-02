@@ -1,15 +1,14 @@
 import { Feather } from "@expo/vector-icons";
 import React, { useContext } from "react";
-import { Button, FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Context as BlogContext } from "../context/BlogContext";
 
+
 const IndexScreen = ({ navigation }) => {
-	const { state, addBlogPost, deleteBlogPost } = useContext(BlogContext);
+	const { state, deleteBlogPost } = useContext(BlogContext);
 
 	return (
 		<View>
-			<Text>IndexScreen</Text>
-			<Button onPress={addBlogPost} title="Add post" />
 			<FlatList
 				keyExtractor={(blogPost) => blogPost.title}
 				renderItem={({ item }) => {
@@ -30,6 +29,18 @@ const IndexScreen = ({ navigation }) => {
 			/>
 		</View>
 	);
+};
+
+IndexScreen.navigationOptions = ({ navigation }) => {
+	return {
+		headerRight: () => {
+			return (
+				<TouchableOpacity onPress={() => navigation.navigate("Create")}>
+					<Feather name="plus" size={30} />
+				</TouchableOpacity>
+			);
+		},
+	};
 };
 
 const styles = StyleSheet.create({
