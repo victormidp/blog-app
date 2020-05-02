@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
-import { StyleSheet, Text, View, FlatList, Button } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Button, TouchableOpacity } from 'react-native';
 import { Context as BlogContext } from '../context/BlogContext';
 import { Feather } from '@expo/vector-icons';
 
 
 const IndexScreen = () => {
-    const { state, addBlogPost } = useContext(BlogContext);
+    const { state, addBlogPost, deleteBlogPost } = useContext(BlogContext);
 
     return (
         <View>
@@ -18,7 +18,9 @@ const IndexScreen = () => {
                     <Text style={styles.titleStyle}>
                         {item.title}
                     </Text>
-                    <Feather name="trash" style={styles.iconStyle} />
+                    <TouchableOpacity onPress={() => deleteBlogPost(item.id)}>
+                        <Feather name="trash" style={styles.iconStyle} />
+                    </TouchableOpacity>
                 </View>);
             }}
             data={state}/>
