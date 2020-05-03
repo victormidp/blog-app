@@ -25,13 +25,14 @@ const getBlogPosts = (dispatch) => {
 
 const addBlogPost = (dispatch) => {
 	return async (title, content, callback) => {
-		await jsonServer.post('/blogposts', { title, content });
+		await jsonServer.post("/blogposts", { title, content });
 		if (callback) callback();
 	};
 };
 
 const editBlogPost = (dispatch) => {
-	return (id, title, content, callback) => {
+	return async (id, title, content, callback) => {
+		await jsonServer.put(`/blogposts/${id}`, { title, content });
 		dispatch({ type: "edit_blogpost", payload: { id, title, content } });
 		if (callback) callback();
 	};
